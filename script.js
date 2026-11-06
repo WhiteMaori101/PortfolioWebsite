@@ -37,7 +37,8 @@ document.querySelectorAll(".lazy-video").forEach((v) => videoIO.observe(v));
 // ------------------------------------------------------------------
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Intro counter 00 -> 99, then reveal the landing
+// Intro counter 00 -> 99 on the first visit, then reveal the landing.
+// Repeat visits (flagged in localStorage) skip straight to the reveal.
 (() => {
   const loader = document.querySelector(".loader");
   const count = document.querySelector(".loader-count");
@@ -45,8 +46,10 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     loader.classList.add("done");
     document.body.classList.remove("is-loading");
     document.body.classList.add("ready");
+    try { localStorage.setItem("introSeen", "1"); } catch (e) {}
   };
-  if (reduceMotion) { finish(); return; }
+  const seen = document.documentElement.classList.contains("seen");
+  if (reduceMotion || seen) { requestAnimationFrame(finish); return; }
   const duration = 1800;
   const start = performance.now();
   const step = (now) => {

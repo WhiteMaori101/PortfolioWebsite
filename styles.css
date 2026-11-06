@@ -215,6 +215,8 @@ a:hover { color: var(--muted); }
   font-variant-numeric: tabular-nums;
 }
 .loader.done { opacity: 0; visibility: hidden; }
+/* Repeat visits skip the intro counter (class set by the inline script in <head>) */
+.seen .loader { display: none; }
 
 /* ------------------------------------------------------------------
    Landing reel
