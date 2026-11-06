@@ -1,18 +1,6 @@
 // Always open on the reel rather than a restored scroll position
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
-// Live New Zealand time in the hero
-const clock = document.getElementById("clock");
-const fmt = new Intl.DateTimeFormat("en-NZ", {
-  timeZone: "Pacific/Auckland",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false,
-});
-const tick = () => { clock.textContent = fmt.format(new Date()); };
-tick();
-setInterval(tick, 10_000);
-
 // Fade sections in as they scroll into view
 const io = new IntersectionObserver(
   (entries) => {
