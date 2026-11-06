@@ -446,7 +446,7 @@ a:hover { color: var(--muted); }
 /* Poster tiles: the image fills the tile edge to edge */
 .tile-poster { padding: 0; }
 .tile-poster::before { display: none; }
-.tile-poster img {
+.tile-poster img, .tile-poster video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -454,7 +454,7 @@ a:hover { color: var(--muted); }
   object-fit: cover;
   transition: transform .8s cubic-bezier(.2, .7, .2, 1);
 }
-.card:hover .tile-poster img { transform: scale(1.03); }
+.card:hover .tile-poster img, .card:hover .tile-poster video { transform: scale(1.03); }
 .tile-poster .tile-kind, .tile-poster .tile-no { z-index: 1; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
 
 .caption {
