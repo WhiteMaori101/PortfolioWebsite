@@ -15,6 +15,23 @@ const io = new IntersectionObserver(
 );
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
+// Tile videos: fetch only when first near the viewport, and play only while visible,
+// so they don't compete with the landing reel on first load
+const videoIO = new IntersectionObserver(
+  (entries) => {
+    for (const { target: v, isIntersecting } of entries) {
+      if (isIntersecting) {
+        if (!v.src) v.src = v.dataset.src;
+        v.play().catch(() => {});
+      } else if (v.src) {
+        v.pause();
+      }
+    }
+  },
+  { rootMargin: "200px 0px" }
+);
+document.querySelectorAll(".lazy-video").forEach((v) => videoIO.observe(v));
+
 // ------------------------------------------------------------------
 // Landing reel
 // ------------------------------------------------------------------
